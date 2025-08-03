@@ -1,3 +1,4 @@
+/*
 package com.malloc.cryptoflux;
 
 import jakarta.annotation.PostConstruct;
@@ -29,4 +30,4 @@ public class BinanceWebSocketClient {
     // Dispose after 60 seconds to stop streaming
     Mono.delay(Duration.ofSeconds(60)).doOnTerminate(disposable::dispose).subscribe();
   }
-}
+}*/
