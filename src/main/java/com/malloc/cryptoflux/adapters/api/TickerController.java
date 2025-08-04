@@ -18,6 +18,11 @@ public class TickerController {
     this.tickerQueryService = tickerQueryService;
   }
 
+  @GetMapping("/price")
+  public Mono<CryptoTicker> getPrice() {
+    return tickerQueryService.getLatest("btcusdt");
+  }
+
   /**
    * Get the latest price for a given symbol.
    * @param symbol e.g., BTCUSDT

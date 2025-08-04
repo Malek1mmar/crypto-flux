@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
 
 @Component
@@ -30,8 +31,10 @@ public class BinanceWebSocketClient {
     client.execute(
         URI.create(WS_URL),
         session -> session.receive()
-            .map(msg -> msg.getPayloadAsText())
+            .map(WebSocketMessage::getPayloadAsText)
+            //.doOnNext(json -> System.out.println(">> Received: " + json))
             .map(this::parseTicker)
+            //.doOnNext(ticker -> System.out.println(">> Parsed: " + ticker))
             .doOnNext(handleTickerUpdate::handle)
             .then()
     ).subscribe();
